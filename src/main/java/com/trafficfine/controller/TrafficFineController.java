@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.trafficfine.entity.Infraction;
 import com.trafficfine.service.TrafficFineService;
 
-@RestController
+@Controller
 public class TrafficFineController {
 
 	static final Logger logger = Logger.getLogger(TrafficFineController.class);
@@ -27,14 +28,10 @@ public class TrafficFineController {
 	@Autowired
 	TrafficFineService trafficFineService;
 	
-	/**
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String getIndexPage(){
-		return "index";
-	}
+	@RequestMapping(value="/",method = RequestMethod.GET)
+	  public String form() {
+	    return "index";
+	  }
 	
 	/**
 	 * 
@@ -42,7 +39,7 @@ public class TrafficFineController {
 	 * @param finalDate
 	 * @return
 	 */
-	@RequestMapping(value = "/busca", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/infracao/busca", method = RequestMethod.GET)
 	public ResponseEntity<List<Infraction>> listAllTrafficFine(
 			@RequestParam(value = "dataInicial") @DateTimeFormat(pattern = "dd/MM/yy") Date dataInicial, 
 			@RequestParam(value = "dataFinal") @DateTimeFormat(pattern = "dd/MM/yy") Date dataFinal) {
